@@ -216,12 +216,12 @@ def send(*args):
             for id in ids:
                 if len(id) > 4:
                     bot.send_message(int(id), message)
-        t = threading.Timer(5.0, send)
+        t = threading.Timer(1000.0, send)
         t.start()
         return
     
 if __name__ == '__main__':
-    t = threading.Timer(5.0, send)
+    t = threading.Timer(1000.0, send)
     t.start()
     bot.polling(none_stop=True, timeout=20)
     
