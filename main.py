@@ -199,7 +199,7 @@ def send_welcome(message):
         with open('chats_ids.txt', 'a') as f:
             f.write(f'{message.from_user.id},')
     bot.send_message(message.from_user.id, f'Привет!Я небольшой бот, надеюсь смогу тебя порадовать.')
-    send()
+    send(message.from_user.id)
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
     bot.reply_to(message, 'Извини, но тут пишу только я)')
@@ -207,16 +207,20 @@ def get_text_messages(message):
 @bot.message_handler(content_types=['audio'])
 def reply_to_audio(message):
     bot.reply_to(message, 'Ох уж єтот прекрасный голос')
-def send():
-    with open('chats_ids.txt') as f:
-        ids = set(f.readline().split(','))
-        message = choise()
-        for id in ids:
-            if len(id) > 4:
-                bot.send_message(int(id), message)
-    t = threading.Timer(1800.0, send)
-    t.start()
-    return
+def send(*args):
+    message = choise()
+
+    if len(args):
+        bot.send_message(int(args[0]), message)
+    else:
+        with open('chats_ids.txt') as f:
+            ids = set(f.readline().split(','))
+            for id in ids:
+                if len(id) > 4:
+                    bot.send_message(int(id), message)
+        t = threading.Timer(1800.0, send)
+        t.start()
+        return
     
 if __name__ == '__main__':
     t = threading.Timer(1800.0, send)
