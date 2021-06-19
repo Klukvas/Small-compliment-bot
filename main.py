@@ -194,7 +194,6 @@ def choise():
 def send_welcome(message):
     with open('chats_ids.txt', 'r') as f:
         all_ids = f.readline().split(',')
-    print(all_ids)
     if not str(message.from_user.id) in all_ids: 
         with open('chats_ids.txt', 'a') as f:
             f.write(f'{message.from_user.id},')
@@ -209,7 +208,6 @@ def reply_to_audio(message):
     bot.reply_to(message, 'Ох уж єтот прекрасный голос')
 def send(*args):
     message = choise()
-
     if len(args):
         bot.send_message(int(args[0]), message)
     else:
@@ -218,12 +216,12 @@ def send(*args):
             for id in ids:
                 if len(id) > 4:
                     bot.send_message(int(id), message)
-        t = threading.Timer(1800.0, send)
+        t = threading.Timer(5.0, send)
         t.start()
         return
     
 if __name__ == '__main__':
-    t = threading.Timer(1800.0, send)
+    t = threading.Timer(5.0, send)
     t.start()
     bot.polling(none_stop=True, timeout=20)
     

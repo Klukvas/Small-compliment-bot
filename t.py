@@ -1,3 +1,6 @@
-with open('chats_ids.txt', 'r') as f:
-    a = f.readline().split(',')
-print(type(a[0]))
+
+
+def a(*args):
+    print(args[0])
+
+a(123)
