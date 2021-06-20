@@ -7,7 +7,8 @@ from random import randint
 from re import search
 import threading
 import telebot
-bot = telebot.TeleBot('1828049312:AAE5IaifKUPu53fSQmQwa2ti3KltWA3V95c')
+import settings
+bot = telebot.TeleBot(str(settings.token))
 
 def free_generator():
     response = json.loads( requests.get("http://free-generator.ru/generator.php?action=compliment&pol=1&type=2").text )
