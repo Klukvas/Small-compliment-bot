@@ -1,5 +1,4 @@
-from typing import KeysView
-from warnings import resetwarnings
+
 import requests
 import json
 from bs4 import BeautifulSoup
@@ -200,14 +199,18 @@ def send_welcome(message):
             f.write(f'{message.from_user.id},')
     bot.send_message(message.from_user.id, f'Привет!Я небольшой бот, надеюсь смогу тебя порадовать.')
     send(message.from_user.id)
+
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
     bot.reply_to(message, 'Извини, но тут пишу только я)')
 
 @bot.message_handler(content_types=['audio'])
 def reply_to_audio(message):
-    bot.reply_to(message, 'Ох уж єтот прекрасный голос')
+    bot.reply_to(message, 'Ох уж этот прекрасный голос')
+
+
 def send(*args):
+    print('send func')
     message = choise()
     if len(args):
         bot.send_message(int(args[0]), message)
@@ -217,12 +220,23 @@ def send(*args):
             for id in ids:
                 if len(id) > 4:
                     bot.send_message(int(id), message)
-        t = threading.Timer(1000.0, send)
+        t = threading.Timer(2.0, send)
         t.start()
         return
     
 if __name__ == '__main__':
-    t = threading.Timer(1000.0, send)
-    t.start()
-    bot.polling(none_stop=True, timeout=20)
+    # import schedule
+    # import time
+    # schedule.every().hour.do(send)
+    # schedule.every(1).minutes.do(send)
+    # bot.polling(none_stop=True, interval=0)
+    # while True:
+    #     schedule.run_pending()
+    #     time.sleep(1)
+    # t = threading.Timer(2.0, send)
+    # t.start()
+    send()
+    bot.polling(none_stop=True, interval=0)
+    # print('start')
+    # print('start2')
     
