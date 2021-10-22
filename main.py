@@ -219,7 +219,10 @@ def send(*args):
             ids = set(f.readline().split(','))
             for id in ids:
                 if len(id) > 4:
-                    bot.send_message(int(id), message)
+                    try:
+                        bot.send_message(int(id), message)
+                    except:
+                        continue
         t = threading.Timer(2.0, send)
         t.start()
         return
